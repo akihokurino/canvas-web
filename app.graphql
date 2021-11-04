@@ -1,0 +1,28 @@
+query ListWork($page: Int!, $limit: Int!) {
+  works(page: $page, limit: $limit) {
+    edges {
+      node {
+        ...WorkFragment
+      }
+    }
+    pageInfo {
+      totalCount
+      hasNextPage
+    }
+  }
+}
+
+query GetWork($id: ID!) {
+  work(id: $id) {
+    ...WorkFragment
+  }
+}
+
+fragment WorkFragment on Work {
+  id
+  videoUrl
+  thumbnails {
+    id
+    imageUrl
+  }
+}
