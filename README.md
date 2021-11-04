@@ -6,7 +6,8 @@
 - typescript
 - graphql
 - apollo-client（ https://github.com/apollographql/apollo-client ）
-- tailwind css
+- graphql-codegen（ https://www.graphql-code-generator.com ）
+- tailwind css（ https://tailwindcss.com ）
 - firebase auth
 - firebase hosting
 
