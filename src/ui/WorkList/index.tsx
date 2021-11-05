@@ -11,7 +11,7 @@ export const WorkList: FC<Props> = () => {
   const { data: workListData } = useListWorkQuery({
     variables: {
       page: 1,
-      limit: 20,
+      limit: 100,
     },
   });
 
