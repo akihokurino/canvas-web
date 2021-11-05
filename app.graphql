@@ -2,7 +2,7 @@ query ListWork($page: Int!, $limit: Int!) {
   works(page: $page, limit: $limit) {
     edges {
       node {
-        ...WorkFragment
+        ...F_Work
       }
     }
     pageInfo {
@@ -14,15 +14,19 @@ query ListWork($page: Int!, $limit: Int!) {
 
 query GetWork($id: ID!) {
   work(id: $id) {
-    ...WorkFragment
+    ...F_Work
   }
 }
 
-fragment WorkFragment on Work {
+fragment F_Work on Work {
   id
   videoUrl
   thumbnails {
-    id
-    imageUrl
+    ...F_Thumbnail
   }
+}
+
+fragment F_Thumbnail on Thumbnail {
+  id
+  imageUrl
 }
