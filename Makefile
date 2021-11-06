@@ -11,3 +11,7 @@ gen:
 
 run-local:
 	npm start
+
+deploy:
+	npm run build
+	firebase deploy
