@@ -36,6 +36,7 @@ export const WorkDetail: FC<Props> = () => {
               <div className="w-full h-screen overflow-scroll grid grid-cols-6 content-start">
                 {workData.work.thumbnails.map((data) => (
                   <img
+                    alt=""
                     className="block w-32 rounded mx-1 my-3"
                     key={data.id}
                     src={data.imageUrl}

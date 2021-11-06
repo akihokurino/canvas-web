@@ -30,3 +30,7 @@ fragment F_Thumbnail on Thumbnail {
   id
   imageUrl
 }
+
+mutation RegisterFMCToken($token: String!, $device: String!) {
+  registerFCMToken(input: { token: $token, device: $device })
+}

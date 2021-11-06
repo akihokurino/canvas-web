@@ -21,6 +21,7 @@ export const WorkCell: FC<Props> = ({ work, onClick }) => {
             .slice(0, 3)
             .map((data) => (
               <img
+                alt=""
                 className="flex-1 block w-1/4 rounded mx-1 my-3"
                 key={data.id}
                 src={data.imageUrl}
