@@ -13,5 +13,6 @@ run-local:
 	npm start
 
 deploy:
+	./prepare-build.sh
 	npm run build
 	firebase deploy

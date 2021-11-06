@@ -29,7 +29,6 @@ function App() {
       })
       .then((token) => {
         if (token) {
-          console.log(`fcm: ${token}`);
           setFcmToken(token);
           registerToken().then(() => {});
         } else {
