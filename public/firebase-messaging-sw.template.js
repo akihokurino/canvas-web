@@ -17,16 +17,11 @@ messaging.setBackgroundMessageHandler((payload) => {
     "[firebase-messaging-sw.js] Received background message ",
     payload
   );
+});
 
-  const notificationTitle = "Background Message Title";
-  const notificationOptions = {
-    title: "push-test-web",
-    body: "push-test-web: Background Message body",
-    icon: "/favicon.ico",
-  };
-
-  return self.registration.showNotification(
-    notificationTitle,
-    notificationOptions
+messaging.onMessage((payload) => {
+  console.log(
+    "[firebase-messaging-sw.js] Received foreground message ",
+    payload
   );
 });

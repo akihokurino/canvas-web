@@ -19,7 +19,7 @@ export const WorkList: FC<Props> = () => {
     if (workListData) {
       return (
         <div className="fixed w-full h-screen dark:bg-gray-800 overflow-y-scroll">
-          <div className="mx-auto w-content grid justify-items-center grid-rows-3 grid-flow-col">
+          <div className="mx-auto w-content grid grid-cols-3 content-start">
             {workListData?.works.edges.map((data) => (
               <WorkCell
                 key={data.node.id}

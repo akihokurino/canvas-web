@@ -31,10 +31,6 @@ function App() {
         if (token) {
           setFcmToken(token);
           registerToken().then(() => {});
-        } else {
-          console.log(
-            "No registration token available. Request permission to generate one."
-          );
         }
       })
       .catch((error) => {
@@ -42,11 +38,6 @@ function App() {
         const errorMessage = error.message;
         console.log(`${errorMessage}, code = ${errorCode}`);
       });
-
-    const messaging = getMessaging();
-    onMessage(messaging, (payload) => {
-      console.log("Message received. ", payload);
-    });
   }, [registerToken]);
 
   const render = () => {
