@@ -1,6 +1,4 @@
-# canvas-web
-
-## 構成
+## Specs
 
 - react
 - typescript
