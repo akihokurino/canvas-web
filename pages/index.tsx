@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-const Root: NextPage = () => {
+const Home: NextPage = () => {
   return (
     <>
       <Head>
@@ -11,10 +11,10 @@ const Root: NextPage = () => {
       </Head>
 
       <main>
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
+        <h1 className="">Hello world!</h1>
       </main>
     </>
   );
 };
 
-export default Root;
+export default Home;
