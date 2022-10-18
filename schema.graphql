@@ -1,0 +1,86 @@
+schema {
+  query: QueryRoot
+}
+
+type QueryRoot {
+  works(nextKey: String, limit: Int): WorkConnection!
+  work(id: String!): Work!
+  frames(workId: String!, nextKey: String, limit: Int): FrameConnection!
+  collections(nextKey: String, limit: Int): CollectionConnection!
+  collection(address: String!): Collection!
+  sellOrders(
+    address: String!
+    nextKey: String
+    limit: Int
+  ): SellOrderConnection!
+}
+
+type FrameEdge {
+  node: Frame!
+}
+
+type WorkConnection {
+  edges: [WorkEdge!]!
+  nextKey: String!
+  totalCount: Int
+}
+
+type FrameConnection {
+  edges: [FrameEdge!]!
+  nextKey: String!
+  totalCount: Int
+}
+
+type Collection {
+  address: String!
+  sellOrders: [SellOrder!]!
+}
+
+type Work {
+  id: String!
+  videoPath: String!
+  signedVideoUrl: String!
+  frames: [Frame!]!
+}
+
+type SellOrderConnection {
+  edges: [SellOrderEdge!]!
+  nextKey: String!
+  totalCount: Int
+}
+
+type CollectionEdge {
+  node: Collection!
+}
+
+type CollectionConnection {
+  edges: [CollectionEdge!]!
+  nextKey: String!
+  totalCount: Int
+}
+
+type SellOrderEdge {
+  node: SellOrder!
+}
+
+type SellOrder {
+  address: String!
+  tokenId: String!
+  name: String!
+  description: String!
+  imageUrl: String!
+  priceEth: Float
+  contract: Collection!
+}
+
+type Frame {
+  id: String!
+  workId: String!
+  imagePath: String!
+  signedImageUrl: String!
+  work: Work!
+}
+
+type WorkEdge {
+  node: Work!
+}

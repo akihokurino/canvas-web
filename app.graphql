@@ -1,0 +1,73 @@
+query Works($cursor: String, $limit: Int) {
+  works(nextKey: $cursor, limit: $limit) {
+    edges {
+      node {
+        ...WorkModel
+      }
+    }
+    nextKey
+  }
+}
+
+query Work($id: String!) {
+  work(id: $id) {
+    ...WorkModel
+  }
+}
+
+query Collections($cursor: String, $limit: Int!) {
+  collections(nextKey: $cursor, limit: $limit) {
+    edges {
+      node {
+        ...CollectionModel
+      }
+    }
+    nextKey
+  }
+}
+
+query Collection($address: String!) {
+  collection(address: $address) {
+    ...CollectionModel
+  }
+}
+
+query SellOrders($address: String!, $cursor: String, $limit: Int!) {
+  sellOrders(address: $address, nextKey: $cursor, limit: $limit) {
+    edges {
+      node {
+        ...SellOrderModel
+      }
+    }
+    nextKey
+  }
+}
+
+fragment WorkModel on Work {
+  id
+  signedVideoUrl
+  frames {
+    ...FrameModel
+  }
+}
+
+fragment FrameModel on Frame {
+  id
+  signedImageUrl
+}
+
+fragment CollectionModel on Collection {
+  address
+  sellOrders {
+    ...SellOrderModel
+  }
+}
+
+fragment SellOrderModel on SellOrder {
+  address
+  tokenId
+  name
+  description
+  imageUrl
+  priceEth
+}
