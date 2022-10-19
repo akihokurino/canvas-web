@@ -11,13 +11,6 @@ import {
   SellOrdersDocument,
   SellOrdersQuery,
   SellOrdersQueryVariables,
-  WorkDocument,
-  WorkModelFragment,
-  WorkQuery,
-  WorkQueryVariables,
-  WorksDocument,
-  WorksQuery,
-  WorksQueryVariables,
 } from "./generated/types";
 
 const client = new GraphQLClient(process.env.NEXT_PUBLIC_GRAPH_URI!, {
@@ -80,45 +73,6 @@ export const getSellOrders = async (
     return {
       orders: result.sellOrders.edges.map((v) => v.node),
       cursor: result.sellOrders.nextKey,
-    };
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getArchives = async (
-  limit: number,
-  cursor?: string
-): Promise<{ works: WorkModelFragment[]; cursor: string }> => {
-  try {
-    const result = await client.request<WorksQuery, WorksQueryVariables>(
-      WorksDocument,
-      {
-        cursor,
-        limit,
-      }
-    );
-    return {
-      works: result.works.edges.map((v) => v.node),
-      cursor: result.works.nextKey,
-    };
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getArchive = async (
-  id: string
-): Promise<{ work: WorkModelFragment }> => {
-  try {
-    const result = await client.request<WorkQuery, WorkQueryVariables>(
-      WorkDocument,
-      {
-        id,
-      }
-    );
-    return {
-      work: result.work,
     };
   } catch (error) {
     throw error;

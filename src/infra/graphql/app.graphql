@@ -1,20 +1,3 @@
-query Works($cursor: String, $limit: Int) {
-  works(nextKey: $cursor, limit: $limit) {
-    edges {
-      node {
-        ...WorkModel
-      }
-    }
-    nextKey
-  }
-}
-
-query Work($id: String!) {
-  work(id: $id) {
-    ...WorkModel
-  }
-}
-
 query Collections($cursor: String, $limit: Int!) {
   collections(nextKey: $cursor, limit: $limit) {
     edges {
@@ -41,19 +24,6 @@ query SellOrders($address: String!, $cursor: String, $limit: Int!) {
     }
     nextKey
   }
-}
-
-fragment WorkModel on Work {
-  id
-  signedVideoUrl
-  frames {
-    ...FrameModel
-  }
-}
-
-fragment FrameModel on Frame {
-  id
-  signedImageUrl
 }
 
 fragment CollectionModel on Collection {

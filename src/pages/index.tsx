@@ -5,17 +5,16 @@ import {
   Card,
   Grid,
   Group,
-  Header,
   Image,
   Text,
-  Title,
 } from "@mantine/core";
 import Routes from "app/routes";
+import { AppHeader } from "components/header";
 import { ParamsOf } from "hooks/use-match";
 import { getCollections } from "infra/graphql/client";
 import { CollectionModelFragment } from "infra/graphql/generated/types";
 import type { GetServerSideProps, NextPage } from "next";
-import Head from "next/head";
+import Link from "next/link";
 
 type Props = {
   collections: CollectionModelFragment[];
@@ -25,20 +24,8 @@ type Props = {
 const Home: NextPage<Props> = (props) => {
   return (
     <>
-      <Head>
-        <title>Canvas Nft Market</title>
-        <meta name="description" content="goerli nft market" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main>
-        <Header height={70} p="md">
-          <div
-            style={{ display: "flex", alignItems: "center", height: "100%" }}
-          >
-            <Title order={2}>NFT Market in Goerli</Title>
-          </div>
-        </Header>
+        <AppHeader />
         <Box
           sx={(theme) => ({
             padding: 20,
@@ -77,15 +64,17 @@ const Home: NextPage<Props> = (props) => {
                     {collection.address}
                   </Text>
 
-                  <Button
-                    variant="light"
-                    color="blue"
-                    fullWidth
-                    mt="md"
-                    radius="md"
-                  >
-                    詳細
-                  </Button>
+                  <Link href={`/collection/${collection.address}`}>
+                    <Button
+                      variant="light"
+                      color="blue"
+                      fullWidth
+                      mt="md"
+                      radius="md"
+                    >
+                      詳細
+                    </Button>
+                  </Link>
                 </Card>
               </Grid.Col>
             ))}

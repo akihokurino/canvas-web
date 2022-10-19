@@ -144,21 +144,6 @@ export type WorkEdge = {
   node: Work;
 };
 
-export type WorksQueryVariables = Exact<{
-  cursor?: InputMaybe<Scalars['String']>;
-  limit?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type WorksQuery = { __typename?: 'QueryRoot', works: { __typename?: 'WorkConnection', nextKey: string, edges: Array<{ __typename?: 'WorkEdge', node: { __typename?: 'Work', id: string, signedVideoUrl: string, frames: Array<{ __typename?: 'Frame', id: string, signedImageUrl: string }> } }> } };
-
-export type WorkQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-export type WorkQuery = { __typename?: 'QueryRoot', work: { __typename?: 'Work', id: string, signedVideoUrl: string, frames: Array<{ __typename?: 'Frame', id: string, signedImageUrl: string }> } };
-
 export type CollectionsQueryVariables = Exact<{
   cursor?: InputMaybe<Scalars['String']>;
   limit: Scalars['Int'];
@@ -183,29 +168,10 @@ export type SellOrdersQueryVariables = Exact<{
 
 export type SellOrdersQuery = { __typename?: 'QueryRoot', sellOrders: { __typename?: 'SellOrderConnection', nextKey: string, edges: Array<{ __typename?: 'SellOrderEdge', node: { __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null } }> } };
 
-export type WorkModelFragment = { __typename?: 'Work', id: string, signedVideoUrl: string, frames: Array<{ __typename?: 'Frame', id: string, signedImageUrl: string }> };
-
-export type FrameModelFragment = { __typename?: 'Frame', id: string, signedImageUrl: string };
-
 export type CollectionModelFragment = { __typename?: 'Collection', address: string, name: string, sellOrders: Array<{ __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null }> };
 
 export type SellOrderModelFragment = { __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null };
 
-export const FrameModelFragmentDoc = gql`
-    fragment FrameModel on Frame {
-  id
-  signedImageUrl
-}
-    `;
-export const WorkModelFragmentDoc = gql`
-    fragment WorkModel on Work {
-  id
-  signedVideoUrl
-  frames {
-    ...FrameModel
-  }
-}
-    ${FrameModelFragmentDoc}`;
 export const SellOrderModelFragmentDoc = gql`
     fragment SellOrderModel on SellOrder {
   address
@@ -225,25 +191,6 @@ export const CollectionModelFragmentDoc = gql`
   }
 }
     ${SellOrderModelFragmentDoc}`;
-export const WorksDocument = gql`
-    query Works($cursor: String, $limit: Int) {
-  works(nextKey: $cursor, limit: $limit) {
-    edges {
-      node {
-        ...WorkModel
-      }
-    }
-    nextKey
-  }
-}
-    ${WorkModelFragmentDoc}`;
-export const WorkDocument = gql`
-    query Work($id: String!) {
-  work(id: $id) {
-    ...WorkModel
-  }
-}
-    ${WorkModelFragmentDoc}`;
 export const CollectionsDocument = gql`
     query Collections($cursor: String, $limit: Int!) {
   collections(nextKey: $cursor, limit: $limit) {
@@ -283,12 +230,6 @@ const defaultWrapper: SdkFunctionWrapper = (action, _operationName, _operationTy
 
 export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = defaultWrapper) {
   return {
-    Works(variables?: WorksQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<WorksQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<WorksQuery>(WorksDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Works', 'query');
-    },
-    Work(variables: WorkQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<WorkQuery> {
-      return withWrapper((wrappedRequestHeaders) => client.request<WorkQuery>(WorkDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Work', 'query');
-    },
     Collections(variables: CollectionsQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<CollectionsQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<CollectionsQuery>(CollectionsDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Collections', 'query');
     },
