@@ -18,6 +18,7 @@ export type Scalars = {
 export type Collection = {
   __typename?: 'Collection';
   address: Scalars['String'];
+  name: Scalars['String'];
   sellOrders: Array<SellOrder>;
 };
 
@@ -164,14 +165,14 @@ export type CollectionsQueryVariables = Exact<{
 }>;
 
 
-export type CollectionsQuery = { __typename?: 'QueryRoot', collections: { __typename?: 'CollectionConnection', nextKey: string, edges: Array<{ __typename?: 'CollectionEdge', node: { __typename?: 'Collection', address: string, sellOrders: Array<{ __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null }> } }> } };
+export type CollectionsQuery = { __typename?: 'QueryRoot', collections: { __typename?: 'CollectionConnection', nextKey: string, edges: Array<{ __typename?: 'CollectionEdge', node: { __typename?: 'Collection', address: string, name: string, sellOrders: Array<{ __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null }> } }> } };
 
 export type CollectionQueryVariables = Exact<{
   address: Scalars['String'];
 }>;
 
 
-export type CollectionQuery = { __typename?: 'QueryRoot', collection: { __typename?: 'Collection', address: string, sellOrders: Array<{ __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null }> } };
+export type CollectionQuery = { __typename?: 'QueryRoot', collection: { __typename?: 'Collection', address: string, name: string, sellOrders: Array<{ __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null }> } };
 
 export type SellOrdersQueryVariables = Exact<{
   address: Scalars['String'];
@@ -186,7 +187,7 @@ export type WorkModelFragment = { __typename?: 'Work', id: string, signedVideoUr
 
 export type FrameModelFragment = { __typename?: 'Frame', id: string, signedImageUrl: string };
 
-export type CollectionModelFragment = { __typename?: 'Collection', address: string, sellOrders: Array<{ __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null }> };
+export type CollectionModelFragment = { __typename?: 'Collection', address: string, name: string, sellOrders: Array<{ __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null }> };
 
 export type SellOrderModelFragment = { __typename?: 'SellOrder', address: string, tokenId: string, name: string, description: string, imageUrl: string, priceEth?: number | null };
 
@@ -218,6 +219,7 @@ export const SellOrderModelFragmentDoc = gql`
 export const CollectionModelFragmentDoc = gql`
     fragment CollectionModel on Collection {
   address
+  name
   sellOrders {
     ...SellOrderModel
   }

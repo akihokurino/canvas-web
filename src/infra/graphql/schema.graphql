@@ -33,6 +33,7 @@ type FrameConnection {
 
 type Collection {
   address: String!
+  name: String!
   sellOrders: [SellOrder!]!
 }
 

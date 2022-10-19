@@ -35,7 +35,7 @@ export const getCollections = async (
       CollectionsQueryVariables
     >(CollectionsDocument, {
       cursor,
-      limit: 20,
+      limit: 100,
     });
     return {
       collections: result.collections.edges.map((v) => v.node),
@@ -75,7 +75,7 @@ export const getSellOrders = async (
     >(SellOrdersDocument, {
       address,
       cursor,
-      limit: 20,
+      limit: 100,
     });
     return {
       orders: result.sellOrders.edges.map((v) => v.node),

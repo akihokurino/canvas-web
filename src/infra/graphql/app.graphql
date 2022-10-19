@@ -58,6 +58,7 @@ fragment FrameModel on Frame {
 
 fragment CollectionModel on Collection {
   address
+  name
   sellOrders {
     ...SellOrderModel
   }
