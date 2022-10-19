@@ -12,6 +12,7 @@ export default class _Document extends Document {
         <Head>
           <title>Canvas Nft Market</title>
           <meta name="description" content="goerli nft market" />
+          <meta name="robots" content="noindex" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <body>

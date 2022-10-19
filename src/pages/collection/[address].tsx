@@ -7,6 +7,7 @@ import {
   Group,
   Image,
   Text,
+  Title,
 } from "@mantine/core";
 import Routes from "app/routes";
 import { AppHeader } from "components/header";
@@ -34,7 +35,13 @@ const CollectionDetail: NextPage<Props> = (props) => {
             padding: 20,
           })}
         >
-          <Grid>
+          <Title order={2}>{props.collection.name}</Title>
+          <Title order={4}>{props.collection.address}</Title>
+          <Grid
+            sx={(theme) => ({
+              marginTop: 20,
+            })}
+          >
             {props.orders.map((order) => (
               <Grid.Col span={4} key={order.tokenId}>
                 <Card shadow="sm" p="lg" radius="md" withBorder>
