@@ -12,6 +12,7 @@ import {
 import Routes from "app/routes";
 import { AppHeader } from "components/header";
 import { ParamsOf } from "hooks/use-match";
+import { getCollection, getSellOrders } from "infra/graphql/client";
 import {
   CollectionModelFragment,
   SellOrderModelFragment,
@@ -83,26 +84,22 @@ export const getServerSideProps: GetServerSideProps<
   ParamsOf<typeof Routes.Collection>
 > = async (context) => {
   try {
-    // const { address } = context.params ?? {};
-    // if (!address) {
-    //   return {
-    //     notFound: true,
-    //   };
-    // }
+    const { address } = context.params ?? {};
+    if (!address) {
+      return {
+        notFound: true,
+      };
+    }
 
-    // const { collection } = await getCollection(address);
-    // const { orders, cursor } = await getSellOrders(address);
-
-    // return {
-    //   props: {
-    //     collection,
-    //     orders,
-    //     cursor,
-    //   },
-    // };
+    const { collection } = await getCollection(address);
+    const { orders, cursor } = await getSellOrders(address);
 
     return {
-      notFound: true,
+      props: {
+        collection,
+        orders,
+        cursor,
+      },
     };
   } catch (error) {
     throw error;

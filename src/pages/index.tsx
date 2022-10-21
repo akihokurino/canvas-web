@@ -11,6 +11,7 @@ import {
 import Routes from "app/routes";
 import { AppHeader } from "components/header";
 import { ParamsOf } from "hooks/use-match";
+import { getCollections } from "infra/graphql/client";
 import { CollectionModelFragment } from "infra/graphql/generated/types";
 import type { GetServerSideProps, NextPage } from "next";
 import Link from "next/link";
@@ -89,19 +90,12 @@ export const getServerSideProps: GetServerSideProps<
   ParamsOf<typeof Routes.Home>
 > = async () => {
   try {
-    // const { collections, cursor } = await getCollections();
-
-    // return {
-    //   props: {
-    //     collections: collections.filter((v) => v.sellOrders.length > 0),
-    //     cursor,
-    //   },
-    // };
+    const { collections, cursor } = await getCollections();
 
     return {
       props: {
-        collections: [],
-        cursor: "",
+        collections: collections.filter((v) => v.sellOrders.length > 0),
+        cursor,
       },
     };
   } catch (error) {
