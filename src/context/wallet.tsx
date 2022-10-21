@@ -1,10 +1,12 @@
+import detectEthereumProvider from "@metamask/detect-provider";
 import { Network, OpenSeaPort } from "opensea-js";
 import { createContext, FC, useEffect, useState } from "react";
+import Web3 from "web3";
 
 interface WalletContextProps {
   installed: boolean;
   account: string;
-  connect: () => void;
+  connect: () => Promise<void>;
   buyNft: (address: string, tokenId: string) => Promise<void>;
   error: string;
   isLoading: boolean;
@@ -13,7 +15,7 @@ interface WalletContextProps {
 export const WalletContext = createContext<WalletContextProps>({
   installed: false,
   account: "",
-  connect: () => {},
+  connect: async () => {},
   buyNft: async (address: string, tokenId: string) => {},
   error: "",
   isLoading: false,
@@ -33,26 +35,29 @@ export const WalletProvider: FC<Props> = ({ children }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    const installed = window.ethereum && window.ethereum.isMetaMask;
-    setInstalled(installed);
+    detectEthereumProvider({ mustBeMetaMask: true }).then((provider) => {
+      const installed = provider && window.ethereum.isMetaMask;
+      setInstalled(installed);
+    });
   }, []);
 
-  const connect = () => {
-    window.ethereum
-      .request({ method: "eth_requestAccounts" })
-      .then((accounts: any) => {
-        setAccount(accounts[0]);
-        setSeaport(
-          new OpenSeaPort(window.ethereum, {
-            networkName: Network.Goerli,
-            apiKey: undefined,
-          })
-        );
+  const connect = async () => {
+    if (!installed) {
+      return;
+    }
+
+    const web3 = new Web3(Web3.givenProvider);
+    web3.eth.defaultChain = "goerli";
+
+    const accounts = await web3.eth.requestAccounts();
+
+    setAccount(accounts[0]);
+    setSeaport(
+      new OpenSeaPort(window.ethereum, {
+        networkName: Network.Goerli,
+        apiKey: undefined,
       })
-      .catch((e: any) => {
-        setError(e.message);
-        alert(e.message);
-      });
+    );
   };
 
   const buyNft = async (address: string, tokenId: string) => {

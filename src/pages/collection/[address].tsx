@@ -29,7 +29,7 @@ type Props = {
 };
 
 const CollectionDetail: NextPage<Props> = (props) => {
-  const { isLoading } = useContext(WalletContext);
+  const { isLoading, buyNft } = useContext(WalletContext);
 
   return (
     <main>
@@ -70,6 +70,16 @@ const CollectionDetail: NextPage<Props> = (props) => {
                   fullWidth
                   mt="md"
                   radius="md"
+                  onClick={async () => {
+                    if (
+                      !confirm(
+                        `${order.name}を${order.priceEth}etherで購入します。\nよろしいですか？`
+                      )
+                    ) {
+                      return;
+                    }
+                    await buyNft(order.address, order.tokenId);
+                  }}
                 >
                   購入
                 </Button>
