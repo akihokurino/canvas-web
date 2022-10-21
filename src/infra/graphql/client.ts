@@ -13,9 +13,13 @@ import {
   SellOrdersQueryVariables,
 } from "./generated/types";
 
+console.log("テスト");
+console.log(process.env.NEXT_PUBLIC_GRAPH_URI);
+console.log(process.env.NEXT_MARKET_TOKEN);
+
 const client = new GraphQLClient(process.env.NEXT_PUBLIC_GRAPH_URI!, {
   headers: {
-    "x-market-token": process.env.MARKET_TOKEN!,
+    "x-market-token": process.env.NEXT_MARKET_TOKEN!,
   },
 });
 
