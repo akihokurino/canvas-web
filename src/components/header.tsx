@@ -1,4 +1,4 @@
-import { Box, Button, Header, Text, Title } from "@mantine/core";
+import { Anchor, Box, Button, Header, Text, Title } from "@mantine/core";
 import { WalletContext } from "context/wallet";
 import { useContext } from "react";
 
@@ -21,7 +21,11 @@ export const AppHeader: React.FC<{}> = (props) => {
         {installed && !account && (
           <Button onClick={connect}>Metamaskと接続</Button>
         )}
-        {!installed && <Button>Metamaskをインストール</Button>}
+        {!installed && (
+          <Anchor href="https://metamask.io/" target="_blank">
+            Metamaskをインストール
+          </Anchor>
+        )}
       </Box>
     </Header>
   );
