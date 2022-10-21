@@ -11,6 +11,8 @@ import {
 } from "@mantine/core";
 import Routes from "app/routes";
 import { AppHeader } from "components/header";
+import { Hud } from "components/hud";
+import { WalletContext } from "context/wallet";
 import { ParamsOf } from "hooks/use-match";
 import { getCollection, getSellOrders } from "infra/graphql/client";
 import {
@@ -18,6 +20,7 @@ import {
   SellOrderModelFragment,
 } from "infra/graphql/generated/types";
 import type { GetServerSideProps, NextPage } from "next";
+import { useContext } from "react";
 
 type Props = {
   collection: CollectionModelFragment;
@@ -26,56 +29,58 @@ type Props = {
 };
 
 const CollectionDetail: NextPage<Props> = (props) => {
+  const { isLoading } = useContext(WalletContext);
+
   return (
-    <>
-      <main>
-        <AppHeader />
-        <Box
+    <main>
+      <AppHeader />
+      <Box
+        sx={(theme) => ({
+          padding: 20,
+        })}
+      >
+        <Title order={2}>{props.collection.name}</Title>
+        <Title order={4}>{props.collection.address}</Title>
+        <Grid
           sx={(theme) => ({
-            padding: 20,
+            marginTop: 20,
           })}
         >
-          <Title order={2}>{props.collection.name}</Title>
-          <Title order={4}>{props.collection.address}</Title>
-          <Grid
-            sx={(theme) => ({
-              marginTop: 20,
-            })}
-          >
-            {props.orders.map((order) => (
-              <Grid.Col span={4} key={order.tokenId}>
-                <Card shadow="sm" p="lg" radius="md" withBorder>
-                  <Card.Section>
-                    <Image src={order.imageUrl} height={500} />
-                  </Card.Section>
+          {props.orders.map((order) => (
+            <Grid.Col span={4} key={order.tokenId}>
+              <Card shadow="sm" p="lg" radius="md" withBorder>
+                <Card.Section>
+                  <Image src={order.imageUrl} height={500} />
+                </Card.Section>
 
-                  <Group position="apart" mt="md" mb="xs">
-                    <Text weight={500}>{order.name}</Text>
-                    <Badge color="pink" variant="light">
-                      On Sale
-                    </Badge>
-                  </Group>
+                <Group position="apart" mt="md" mb="xs">
+                  <Text weight={500}>{order.name}</Text>
+                  <Badge color="pink" variant="light">
+                    On Sale
+                  </Badge>
+                </Group>
 
-                  <Text size="sm" color="dimmed">
-                    価格: {order.priceEth} ether
-                  </Text>
+                <Text size="sm" color="dimmed">
+                  価格: {order.priceEth} ether
+                </Text>
 
-                  <Button
-                    variant="light"
-                    color="blue"
-                    fullWidth
-                    mt="md"
-                    radius="md"
-                  >
-                    購入
-                  </Button>
-                </Card>
-              </Grid.Col>
-            ))}
-          </Grid>
-        </Box>
-      </main>
-    </>
+                <Button
+                  variant="light"
+                  color="blue"
+                  fullWidth
+                  mt="md"
+                  radius="md"
+                >
+                  購入
+                </Button>
+              </Card>
+            </Grid.Col>
+          ))}
+        </Grid>
+      </Box>
+
+      {isLoading && <Hud />}
+    </main>
   );
 };
 

@@ -22,12 +22,15 @@
     "graphql": "^16.6.0",
     "graphql-request": "^5.0.0",
     "next": "11.1.4",
+    "opensea-js": "^4.0.12",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "web3": "^1.8.0"
   },
   "devDependencies": {
     "@types/node": "18.8.5",
     "@types/react-dom": "17.0.14",
+    "@types/web3": "^1.2.2",
     "autoprefixer": "^10.4.12",
     "eslint": "^8.25.0",
     "eslint-config-next": "11.1.4",
