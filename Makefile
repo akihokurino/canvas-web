@@ -6,3 +6,6 @@ run-local:
 
 gen:
 	npm run gen
+
+build:
+	npm run build
