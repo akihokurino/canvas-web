@@ -6,7 +6,7 @@
 - amplify
 - route53
 - metamask
-- web3
+- web3 (https://github.com/web3/web3.js)
 - opensea-js (https://github.com/ProjectOpenSea/opensea-js)
 - graphql
 
