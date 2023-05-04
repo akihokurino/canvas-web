@@ -1,4 +1,4 @@
-## Specs
+## Used, Dependency
 
 - reactjs v17
 - nextjs v11
